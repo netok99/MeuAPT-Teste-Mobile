@@ -16,6 +16,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:scaleType="fitCenter"
+            android:transitionName="shot"
             android:contentDescription="@string/imgShot"/>
 
         <RelativeLayout

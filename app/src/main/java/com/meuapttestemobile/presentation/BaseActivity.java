@@ -10,7 +10,8 @@ import com.meuapttestemobile.AppComponent;
 
 public abstract class BaseActivity extends AppCompatActivity {
     public AppComponent getAppComponent() {
-        return new App().getAppComponent();
+        App application = (App) getApplication();
+        return application.getAppComponent();
     }
 
     public boolean isOnline(Context context) {

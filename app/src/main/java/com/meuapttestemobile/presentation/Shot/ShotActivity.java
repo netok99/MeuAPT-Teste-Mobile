@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.meuapttestemobile.R;
 import com.meuapttestemobile.data.model.Shot;
 import com.meuapttestemobile.presentation.BaseActivity;
-import com.meuapttestemobile.presentation.BaseView;
 import com.meuapttestemobile.presentation.PresenterModule;
 import com.meuapttestemobile.presentation.UiComponent;
 
@@ -22,7 +21,6 @@ import javax.inject.Inject;
 
 public class ShotActivity extends BaseActivity implements ShotViewContract {
 
-    private UiComponent uiComponent;
     @Inject
     ShotPresenterContract presenter;
     private SwipeRefreshLayout swipeRefresh;
@@ -31,7 +29,7 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shots);
-        uiComponent = getAppComponent().plus(new PresenterModule(this));
+        UiComponent uiComponent = getAppComponent().plus(new PresenterModule(this));
         uiComponent.inject(this);
 
         setupUI();
@@ -51,18 +49,12 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
 
     private void setupSwipeRefresh() {
         swipeRefresh = findViewById(R.id.swipeRefresh);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getShots();
-            }
-        });
+        swipeRefresh.setOnRefreshListener(this::getShots);
     }
 
     private void getShots() {
         presenter.getShots("84ec8334d80acb8d849f9d2f24038d25df170bcce1b3d0d998543cfb81bb7e8e", 1);
     }
-
 
     @Override
     public void setupShotList(List<Shot> gists) {
