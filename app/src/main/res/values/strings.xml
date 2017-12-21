@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MeuAPT Teste Mobile</string>
+
+    <string name="offline_message_shots">Conecte na Internet para conferir os shots ;)</string>
+    <string name="title_shot_activity">Shots</string>
+    <string name="error_message_shot">Ocorreu um erro em acessar os shots,
+        conecte na internet ou tente novamente mais tarde. </string>
+
+
+    <!--contentDescription-->
+    <string name="imgShot">Image Shot</string>
+</resources>
