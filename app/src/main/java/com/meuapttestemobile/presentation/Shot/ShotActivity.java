@@ -1,6 +1,7 @@
 package com.meuapttestemobile.presentation.Shot;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,6 +16,9 @@ import com.meuapttestemobile.presentation.BaseActivity;
 import com.meuapttestemobile.presentation.PresenterModule;
 import com.meuapttestemobile.presentation.UiComponent;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +28,13 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
     @Inject
     ShotPresenterContract presenter;
     private SwipeRefreshLayout swipeRefresh;
+    private List<Shot> shots;
+    private final String keySavedInstanceState = "shots";
+
+    static {
+        System.loadLibrary("keys");
+    }
+    public native String getNativeKey();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +44,12 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
         uiComponent.inject(this);
 
         setupUI();
-        getShots();
+
+        if (savedInstanceState == null) {
+            getShots();
+        } else {
+            setupShotList(savedInstanceState.getParcelableArrayList(keySavedInstanceState));
+        }
     }
 
     private void setupUI() {
@@ -53,16 +69,17 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
     }
 
     private void getShots() {
-        presenter.getShots("84ec8334d80acb8d849f9d2f24038d25df170bcce1b3d0d998543cfb81bb7e8e", 1);
+        presenter.getShots(getNativeKey(), 1);
     }
 
     @Override
-    public void setupShotList(List<Shot> gists) {
+    public void setupShotList(@NotNull List<Shot> shots) {
+        this.shots = shots;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         RecyclerView shotsList = findViewById(R.id.shotsList);
         shotsList.setLayoutManager(layoutManager);
         shotsList.addItemDecoration(new DividerItemDecoration(shotsList.getContext(), layoutManager.getOrientation()));
-        shotsList.setAdapter(new ShotAdapter(this, gists));
+        shotsList.setAdapter(new ShotAdapter(this, shots));
         shotsList.setHasFixedSize(true);
     }
 
@@ -74,5 +91,14 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
     @Override
     public void showLoadingIndicator(boolean isLoading) {
         swipeRefresh.setRefreshing(isLoading);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        if (shots != null && !shots.isEmpty()) {
+            savedInstanceState.putParcelableArrayList(keySavedInstanceState,
+                    (ArrayList<? extends Parcelable>) shots);
+        }
     }
 }
