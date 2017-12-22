@@ -11,7 +11,7 @@ import dagger.Provides;
 @Module
 public class PresenterModule {
 
-    private BaseView view;
+    private final BaseView view;
 
     public PresenterModule(BaseView view) {
         this.view = view;

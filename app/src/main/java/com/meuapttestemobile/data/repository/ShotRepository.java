@@ -11,8 +11,8 @@ import rx.Observable;
 
 public class ShotRepository implements ShotDataSource {
 
-    private APIService api;
-    private App app;
+    private final APIService api;
+    private final App app;
 
     public ShotRepository(APIService api, App app) {
         this.api = api;

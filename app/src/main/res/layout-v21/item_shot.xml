@@ -28,7 +28,6 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Teste"
                 android:textColor="@color/blue_500"
                 android:textStyle="bold" />
 
@@ -38,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTitle"
                 android:layout_marginTop="@dimen/text_margin"
-                android:text="Teste"
                 android:textColor="@color/cinder" />
 
             <TextView
@@ -47,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtViewsCount"
                 android:layout_marginTop="@dimen/text_margin"
-                android:text="Teste"
                 android:textColor="@color/cinder" />
 
         </RelativeLayout>

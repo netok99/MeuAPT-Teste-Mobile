@@ -10,10 +10,10 @@ public class Image implements Parcelable {
 
     @SerializedName("hidpi")
     @Expose
-    private String hidpi;
+    private final String hidpi;
     @SerializedName("normal")
     @Expose
-    private String normal;
+    private final String normal;
 
     public Image(String hidpi, String normal) {
         this.hidpi = hidpi;

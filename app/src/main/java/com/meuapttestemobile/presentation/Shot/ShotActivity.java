@@ -8,6 +8,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.meuapttestemobile.R;
@@ -94,7 +96,14 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
     }
 
     private void getShots(int page) {
-        presenter.getShots(getNativeKey(), page);
+        RelativeLayout offlineState = findViewById(R.id.offline_state);
+        if (isOnline(this)) {
+            presenter.getShots(getNativeKey(), page);
+            offlineState.setVisibility(View.GONE);
+        } else {
+            showLoadingIndicator(false);
+            offlineState.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

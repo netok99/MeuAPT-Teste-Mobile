@@ -9,7 +9,7 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     private int mPreviousTotal = 0;
     private boolean mLoading = true;
     private int mCurrentPage = 1;
-    private LinearLayoutManager mLinearLayoutManager;
+    private final LinearLayoutManager mLinearLayoutManager;
 
     public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
         this.mLinearLayoutManager = linearLayoutManager;

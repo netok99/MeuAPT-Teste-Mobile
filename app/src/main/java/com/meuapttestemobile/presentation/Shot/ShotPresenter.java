@@ -11,8 +11,8 @@ import rx.schedulers.Schedulers;
 
 public class ShotPresenter implements ShotPresenterContract {
 
-    private ShotViewContract view;
-    private ShotDataSource dataSource;
+    private final ShotViewContract view;
+    private final ShotDataSource dataSource;
 
     public ShotPresenter(ShotViewContract view, ShotDataSource dataSource) {
         this.view = view;

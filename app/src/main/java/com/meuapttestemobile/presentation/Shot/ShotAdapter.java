@@ -1,7 +1,6 @@
 package com.meuapttestemobile.presentation.Shot;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShotAdapter extends RecyclerView.Adapter<ShotViewHolder> {
+class ShotAdapter extends RecyclerView.Adapter<ShotViewHolder> {
 
     private final ShotActivity activity;
     private List<Shot> shots = new ArrayList<>();
@@ -34,10 +33,6 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotViewHolder> {
     void addItem(List<Shot> shots) {
         this.shots.addAll(shots);
         notifyDataSetChanged();
-//        for (Shot shot : shots) {
-//            this.shots.add(shot);
-//            notifyItemInserted(shots.size() - 1);
-//        }
     }
 
     void clearItems() {

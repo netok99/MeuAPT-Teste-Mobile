@@ -31,7 +31,7 @@ public class ShotActivityTest  {
 
     @Rule
     @JvmField
-    public ActivityTestRule<ShotActivity> mActivityRule =
+    public final ActivityTestRule<ShotActivity> mActivityRule =
             new ActivityTestRule(ShotActivity.class, false, false);
 
     @Before

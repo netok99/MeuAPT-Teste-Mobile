@@ -31,7 +31,7 @@ public class ShotPresenterTest {
         presenter = new ShotPresenter(view, dataSource);
     }
 
-    private ArrayList<Shot> shots = new ArrayList<Shot>() {{
+    private final ArrayList<Shot> shots = new ArrayList<Shot>() {{
         add(new Shot("teste1", new Image("imageHidpi1", "imageNormal1"),
                 10, new Date(), "description1", 15));
         add(new Shot("teste2", new Image("imageHidpi2", "imageNormal2"),

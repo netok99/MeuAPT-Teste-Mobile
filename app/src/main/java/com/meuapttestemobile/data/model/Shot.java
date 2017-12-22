@@ -12,22 +12,22 @@ public class Shot implements Parcelable {
 
     @SerializedName("title")
     @Expose
-    private String title;
+    private final String title;
     @SerializedName("images")
     @Expose
-    private Image images;
+    private final Image images;
     @SerializedName("views_count")
     @Expose
-    private int viewsCount;
+    private final int viewsCount;
     @SerializedName("created_at")
     @Expose
-    private Date createdAt;
+    private final Date createdAt;
     @SerializedName("description")
     @Expose
-    private String description;
+    private final String description;
     @SerializedName("comments_count")
     @Expose
-    private int commentsCount;
+    private final int commentsCount;
 
     public Shot(String title, Image images, int viewsCount, Date createdAt, String description,
                 int commentsCount) {

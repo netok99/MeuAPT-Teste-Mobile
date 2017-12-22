@@ -15,8 +15,8 @@
             android:id="@+id/imgShot"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/imgShot"/>
+            android:contentDescription="@string/imgShot"
+            android:scaleType="fitCenter" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -28,8 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue_500"
-                android:textStyle="bold"
-                android:text="Teste"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtViewsCount"
@@ -37,8 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTitle"
                 android:layout_marginTop="@dimen/text_margin"
-                android:textColor="@color/cinder"
-                android:text="Teste"/>
+                android:textColor="@color/cinder" />
 
             <TextView
                 android:id="@+id/txtCreatedAt"
@@ -46,8 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtViewsCount"
                 android:layout_marginTop="@dimen/text_margin"
-                android:textColor="@color/cinder"
-                android:text="Teste"/>
+                android:textColor="@color/cinder" />
 
         </RelativeLayout>
     </LinearLayout>
