@@ -19,16 +19,31 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShotAdapter extends RecyclerView.Adapter<ShotViewHolder> {
 
     private final ShotActivity activity;
-    private final List<Shot> shots;
+    private List<Shot> shots = new ArrayList<>();
 
-    ShotAdapter(@NotNull ShotActivity activity, @NotNull List<Shot> shots) {
+    ShotAdapter(@NotNull ShotActivity activity) {
         this.activity = activity;
-        this.shots = shots;
+    }
+
+    void addItem(List<Shot> shots) {
+        this.shots.addAll(shots);
+        notifyDataSetChanged();
+//        for (Shot shot : shots) {
+//            this.shots.add(shot);
+//            notifyItemInserted(shots.size() - 1);
+//        }
+    }
+
+    void clearItems() {
+        int size = shots.size();
+        shots.clear();
+        notifyItemRangeRemoved(0, size);
     }
 
     @Override

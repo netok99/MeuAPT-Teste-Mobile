@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.meuapttestemobile.R;
 import com.meuapttestemobile.data.model.Shot;
 import com.meuapttestemobile.presentation.BaseActivity;
+import com.meuapttestemobile.presentation.EndlessRecyclerOnScrollListener;
 import com.meuapttestemobile.presentation.PresenterModule;
 import com.meuapttestemobile.presentation.UiComponent;
 
@@ -28,7 +29,8 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
     @Inject
     ShotPresenterContract presenter;
     private SwipeRefreshLayout swipeRefresh;
-    private List<Shot> shots;
+    private List<Shot> shots = new ArrayList<>();
+    private ShotAdapter adapter;
     private final String keySavedInstanceState = "shots";
 
     static {
@@ -46,7 +48,7 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
         setupUI();
 
         if (savedInstanceState == null) {
-            getShots();
+            getShots(1);
         } else {
             setupShotList(savedInstanceState.getParcelableArrayList(keySavedInstanceState));
         }
@@ -55,6 +57,24 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
     private void setupUI() {
         setupToolbar();
         setupSwipeRefresh();
+        configShotList();
+    }
+
+    private void configShotList() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView shotsList = findViewById(R.id.shotsList);
+        shotsList.addOnScrollListener(
+                new EndlessRecyclerOnScrollListener(layoutManager) {
+                    @Override
+                    public void onLoadMore(int currentPage) {
+                        getShots(currentPage);
+                    }
+                });
+        shotsList.setLayoutManager(layoutManager);
+        shotsList.addItemDecoration(new DividerItemDecoration(shotsList.getContext(), layoutManager.getOrientation()));
+        this.adapter = new ShotAdapter(this);
+        shotsList.setAdapter(adapter);
+        shotsList.setHasFixedSize(true);
     }
 
     private void setupToolbar() {
@@ -65,22 +85,22 @@ public class ShotActivity extends BaseActivity implements ShotViewContract {
 
     private void setupSwipeRefresh() {
         swipeRefresh = findViewById(R.id.swipeRefresh);
-        swipeRefresh.setOnRefreshListener(this::getShots);
+        swipeRefresh.setOnRefreshListener(() -> {
+            adapter.clearItems();
+            shots.clear();
+            configShotList();
+            getShots(1);
+        });
     }
 
-    private void getShots() {
-        presenter.getShots(getNativeKey(), 1);
+    private void getShots(int page) {
+        presenter.getShots(getNativeKey(), page);
     }
 
     @Override
     public void setupShotList(@NotNull List<Shot> shots) {
-        this.shots = shots;
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        RecyclerView shotsList = findViewById(R.id.shotsList);
-        shotsList.setLayoutManager(layoutManager);
-        shotsList.addItemDecoration(new DividerItemDecoration(shotsList.getContext(), layoutManager.getOrientation()));
-        shotsList.setAdapter(new ShotAdapter(this, shots));
-        shotsList.setHasFixedSize(true);
+        this.shots.addAll(shots);
+        adapter.addItem(shots);
     }
 
     @Override
