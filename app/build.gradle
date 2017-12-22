@@ -23,6 +23,18 @@ android {
             buildConfigField "String", "API_URL", "\"https://api.dribbble.com/v1/\""
         }
     }
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -42,7 +54,8 @@ dependencies {
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:3.6.0"
     androidTestImplementation "com.android.support:support-annotations:$support_version"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'org.mockito:mockito-all:2.0.2-beta'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
     testImplementation 'junit:junit:4.12'
 
     implementation "com.android.support:appcompat-v7:$support_version"
